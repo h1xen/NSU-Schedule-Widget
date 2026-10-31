@@ -50,9 +50,3 @@ Android-приложение и постоянный виджет экрана �
 - **Парсер расписания:** Jsoup (HTML-парсинг официального расписания `table.nsu.ru`)
 - **Службы:** Foreground Service (`specialUse`), AlarmManager Exact Alarms, BroadcastReceiver (Boot/Time Change)
 - **Безопасность:** Network Security Config (принудительный TLS/HTTPS, отключён cleartext HTTP)
-
----
-
-## Лицензия
-
-Распространяется свободно для студентов и преподавателей НГУ.
