@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Расписание НГУ</string>
+    <string name="app_title">NSU Lockscreen Schedule</string>
+    <string name="group_title">Группа 26946</string>
+    <string name="status_not_running">Виджет на экране блокировки выключен</string>
+    <string name="status_running">Виджет закреплен на экране блокировки</string>
+    <string name="btn_enable_widget">Включить виджет локскрина</string>
+    <string name="btn_disable_widget">Отключить виджет локскрина</string>
+    <string name="btn_refresh">Обновить расписание сейчас</string>
+    <string name="battery_card_title">Фоновая работа виджета</string>
+    <string name="battery_optimization_desc">Для бесперебойного переключения таймера пар на экране блокировки отключите ограничения работы приложения в фоновом режиме.</string>
+    <string name="btn_allow_unrestricted">Разрешить работу без ограничений</string>
+    <string name="schedule_last_updated">Обновлено: %1$s</string>
+    <string name="notification_channel_name">Расписание занятий НГУ</string>
+    <string name="notification_channel_desc">Постоянный виджет текущей пары и таймера на экране блокировки</string>
+    <string name="status_before_lesson">До начала:</string>
+    <string name="status_during_lesson">До конца пары:</string>
+    <string name="status_day_finished">Пары на сегодня завершены</string>
+    <string name="status_no_lessons">Сегодня нет занятий</string>
+    <string name="next_lesson_prefix">След. пара:</string>
+</resources>

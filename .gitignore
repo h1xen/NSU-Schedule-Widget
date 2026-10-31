@@ -1,0 +1,22 @@
+*.iml
+.gradle
+/local.properties
+local.properties
+.DS_Store
+Thumbs.db
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Android Studio & IntelliJ
+.idea/
+
+# Deployment & Server credentials (CRITICAL - DO NOT TRACK)
+deploy/
+# Binaries & packages
+*.apk
+*.exe
+*.dll
+*.p7s
+*.nuspec

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Empty state for days with no lessons -->
+    <TextView
+        android:id="@+id/tv_page_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_card"
+        android:gravity="center"
+        android:padding="32dp"
+        android:text="В этот день занятий нет. Отдыхайте!"
+        android:textColor="@color/dashboard_text_muted"
+        android:textSize="13sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <!-- Direct linear container for day lessons and window indicators -->
+    <LinearLayout
+        android:id="@+id/layout_day_lessons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+</LinearLayout>

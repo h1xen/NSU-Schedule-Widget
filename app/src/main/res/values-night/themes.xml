@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark theme -->
+    <style name="Base.Theme.SceduleAlarm" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/dashboard_bg</item>
+        <item name="colorSurface">@color/dashboard_card_bg</item>
+        <item name="colorSurfaceContainer">@color/dashboard_card_bg</item>
+        <item name="colorSurfaceContainerHigh">@color/dashboard_card_bg</item>
+        <item name="colorSurfaceContainerHighest">@color/dashboard_card_bg</item>
+        
+        <item name="colorOutlineVariant">@color/dashboard_card_stroke</item>
+        <item name="colorOutline">@color/dashboard_card_stroke_highlight</item>
+        
+        <item name="colorOnSurface">@color/dashboard_text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/dashboard_text_secondary</item>
+        
+        <item name="colorPrimary">@color/accent_blue</item>
+        <item name="colorSecondary">@color/accent_emerald</item>
+        <item name="colorTertiary">@color/accent_amber</item>
+
+        <item name="android:statusBarColor">@color/dashboard_bg</item>
+        <item name="android:navigationBarColor">@color/dashboard_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Bottom Sheet Dialog styling -->
+        <item name="bottomSheetDialogTheme">@style/DarkSlateBottomSheetDialogTheme</item>
+    </style>
+</resources>

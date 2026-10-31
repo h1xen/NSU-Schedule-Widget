@@ -1,0 +1,7 @@
+{
+  "versionCode": 6,
+  "versionName": "1.2.1",
+  "apkUrl": "https://github.com/h1xen/NSU-Schedule-Widget/releases/latest/download/NSU_Schedule_v1.2.1.apk",
+  "sha256": "3448c9150bd1cc5a75cad68f3cd8ab78491a24cf5c17997424ed680dff024ab3",
+  "changelog": "Красивый интерфейс расписания без лишнего скролла, вкладка Настройки с шестерёнкой, выбор группы и фильтры в настройках, единая кнопка обновления"
+}

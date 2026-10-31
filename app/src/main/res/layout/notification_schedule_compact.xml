@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_notification_card"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <!-- Room Badge Block -->
+    <LinearLayout
+        android:id="@+id/layout_room_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="60dp"
+        android:maxWidth="90dp"
+        android:gravity="center"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_room_badge"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_room_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="АУД."
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:textColor="#D0E8FF" />
+
+        <TextView
+            android:id="@+id/tv_room_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="76dp"
+            android:text="313 КПА"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Content: Subject + Status & Chronometer -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <!-- Line 1: Type + Subject -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_lesson_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ПРАКТИКА"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#90CAF9"
+                android:background="@drawable/bg_notification_type_badge"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp" />
+
+            <TextView
+                android:id="@+id/tv_subject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="История России"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_header_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Line 2: Status label + Chronometer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="До конца пары:"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FFB74D" />
+
+            <Chronometer
+                android:id="@+id/chronometer_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFD54F"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_static_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Завтра в 09:00"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#81D4FA"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

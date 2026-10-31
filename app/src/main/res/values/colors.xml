@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Dark Slate Core Palette (Exact match with vfamily-vpn design system) -->
+    <color name="dashboard_bg">#0B0F17</color>
+    <color name="dashboard_card_bg">#151C24</color>
+    <color name="dashboard_card_stroke">#222D3A</color>
+    <color name="dashboard_card_stroke_highlight">#2B313A</color>
+    <color name="dashboard_card_inner">#10141A</color>
+    <color name="dashboard_card_elevated">#1C2530</color>
+    
+    <!-- Typography Palette -->
+    <color name="dashboard_text_primary">#F8FAFC</color>
+    <color name="dashboard_text_secondary">#94A3B8</color>
+    <color name="dashboard_text_muted">#64748B</color>
+
+    <!-- Accent: Emerald (OTA, Active status, toggles, success) -->
+    <color name="accent_emerald">#10B981</color>
+    <color name="accent_emerald_dark">#059669</color>
+    <color name="accent_emerald_bg">#064E3B</color>
+    <color name="accent_emerald_stroke">#047857</color>
+
+    <!-- Accent: Royal Blue (Action buttons, pills, highlights) -->
+    <color name="accent_blue">#3B82F6</color>
+    <color name="accent_blue_dark">#2563EB</color>
+    <color name="accent_blue_bg">#172554</color>
+    <color name="accent_blue_stroke">#1D4ED8</color>
+    <color name="royal_blue_badge_text">#60A5FA</color>
+
+    <!-- Accent: Amber / Warning (Timers, phase indicators) -->
+    <color name="accent_amber">#F59E0B</color>
+    <color name="accent_amber_bg">#37230B</color>
+    <color name="accent_amber_stroke">#B45309</color>
+
+    <!-- NSU Palette (Legacy compatible) -->
+    <color name="nsu_blue">#2563EB</color>
+    <color name="nsu_blue_dark">#1D4ED8</color>
+    <color name="nsu_blue_light">#172554</color>
+    <color name="nsu_accent">#3B82F6</color>
+    <color name="nsu_cyan">#06B6D4</color>
+    <color name="ic_launcher_background">#121620</color>
+
+    <!-- Notification & Widget Colors -->
+    <color name="notification_bg">#0B0F17</color>
+    <color name="badge_lecture">#3B82F6</color>
+    <color name="badge_practice">#10B981</color>
+    <color name="badge_lab">#F59E0B</color>
+    <color name="badge_other">#64748B</color>
+
+    <color name="badge_type_bg">#172554</color>
+    <color name="badge_type_text">#60A5FA</color>
+    <color name="preview_timer_bg">#10141A</color>
+    <color name="battery_card_bg">#1E1810</color>
+    <color name="battery_card_stroke">#78350F</color>
+    <color name="battery_card_text">#FDE68A</color>
+
+    <color name="timer_color">#F59E0B</color>
+    <color name="timer_orange">#F59E0B</color>
+
+    <!-- Selection card colors -->
+    <color name="item_selected_bg">#0F1A1B</color>
+</resources>

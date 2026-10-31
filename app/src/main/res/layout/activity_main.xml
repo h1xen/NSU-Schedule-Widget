@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/dashboard_bg">
+
+    <!-- Top App Bar & Segmented Tabs Container -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/dashboard_bg"
+        app:elevation="0dp">
+
+        <!-- Header: App Logo, Title/Subtitle, Quick-Refresh -->
+        <LinearLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/dashboard_bg">
+
+            <!-- App Logo Icon (40x40dp, rounded 12dp) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/dashboard_card_stroke"
+                app:cardBackgroundColor="@color/dashboard_card_bg">
+
+                <ImageView
+                    android:id="@+id/iv_app_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_app_logo_n"
+                    android:contentDescription="@null" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 2-line title & subtitle block (No duplicate app name in subtitle) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dashboard_text_primary" />
+
+                <TextView
+                    android:id="@+id/tv_header_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Группа 26946"
+                    android:textSize="12sp"
+                    android:textColor="@color/dashboard_text_muted" />
+            </LinearLayout>
+
+            <!-- Circular quick-refresh button (40x40dp, bg #1C2530, stroke #222D3A) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_header_refresh"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/dashboard_card_elevated"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/dashboard_card_stroke"
+                app:cardElevation="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_header_refresh"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_refresh"
+                        app:tint="@color/dashboard_text_secondary"
+                        android:contentDescription="@string/btn_refresh" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_header_refresh"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/accent_blue"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <!-- Segmented Tab Navigation: [ Расписание ] [ Настройки ] -->
+        <LinearLayout
+            android:id="@+id/layout_tabs_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="10dp"
+            android:background="@color/dashboard_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_segmented_container"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Tab 1: Schedule -->
+                <LinearLayout
+                    android:id="@+id/tab_schedule"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tab_active"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_tab_schedule"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_tab_schedule"
+                        app:tint="@color/dashboard_text_primary"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/tv_tab_schedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Расписание"
+                        android:textColor="@color/dashboard_text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Tab 2: Settings (Шестерёнка) -->
+                <LinearLayout
+                    android:id="@+id/tab_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_tab_settings"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_settings"
+                        app:tint="@color/dashboard_text_muted"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/tv_tab_settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Настройки"
+                        android:textColor="@color/dashboard_text_muted"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Hidden MaterialToolbar to preserve programmatic compatibility -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Scroll Container -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- ======================================================== -->
+            <!-- TAB 1: SCHEDULE (РАСПИСАНИЕ) CONTENT                     -->
+            <!-- Direct access to schedule without scroll-pushing blocks   -->
+            <!-- ======================================================== -->
+            <LinearLayout
+                android:id="@+id/layout_tab_content_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- OTA In-App Update Banner Card (only shown when actual update is available) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_update_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/accent_emerald_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="НОВАЯ ВЕРСИЯ"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/accent_emerald"
+                                android:background="@drawable/bg_badge_emerald"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp" />
+
+                            <TextView
+                                android:id="@+id/tv_update_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:text="Доступно обновление"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/dashboard_text_primary" />
+
+                            <ImageView
+                                android:id="@+id/btn_dismiss_update"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_close"
+                                app:tint="@color/dashboard_text_muted"
+                                android:contentDescription="Закрыть баннер" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_update_changelog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/dashboard_text_secondary"
+                            android:lineSpacingExtra="2dp"
+                            tools:text="Dark Slate UI, In-App OTA Updater" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_install_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Скачать и установить"
+                            android:textColor="@color/dashboard_bg"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="22dp"
+                            android:backgroundTint="@color/accent_emerald" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_update_download"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="8dp"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressTint="@color/accent_emerald"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_update_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="11sp"
+                            android:textColor="@color/accent_emerald"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Week Schedule Header (Day of week, Date & Navigation) -->
+                <LinearLayout
+                    android:id="@+id/layout_schedule_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- Previous Day Button -->
+                    <FrameLayout
+                        android:id="@+id/btn_prev_day"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_item_card"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:id="@+id/iv_prev_day"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_chevron_right"
+                            android:rotation="180"
+                            app:tint="@color/dashboard_text_primary"
+                            android:contentDescription="Предыдущий день" />
+                    </FrameLayout>
+
+                    <!-- Center: Date & Day Title -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_schedule_day_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/dashboard_text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:text="Четверг, 29 октября" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_schedule_today_badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:background="@drawable/bg_badge_emerald"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="1dp"
+                                android:text="СЕГОДНЯ"
+                                android:textColor="@color/accent_emerald"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/tv_schedule_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/dashboard_text_secondary"
+                                android:textSize="12sp"
+                                tools:text="5 пар • Нечетная неделя" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Next Day Button -->
+                    <FrameLayout
+                        android:id="@+id/btn_next_day"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_item_card"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:id="@+id/iv_next_day"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="@color/dashboard_text_primary"
+                            android:contentDescription="Следующий день" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- ViewPager2 for swiping across all 7 days of the week -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pager_week_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="140dp"
+                    android:orientation="horizontal" />
+
+            </LinearLayout>
+
+            <!-- ======================================================== -->
+            <!-- TAB 2: SETTINGS (НАСТРОЙКИ И ВИДЖЕТ) CONTENT              -->
+            <!-- ======================================================== -->
+            <LinearLayout
+                android:id="@+id/layout_tab_content_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Section: Group & Filter -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="ОСНОВНЫЕ НАСТРОЙКИ"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dashboard_text_muted"
+                    android:letterSpacing="0.06" />
+
+                <!-- Card: Group Selector -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_group_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/dashboard_card_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_filter_icon">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_school"
+                                app:tint="@color/royal_blue_badge_text"
+                                android:contentDescription="@null" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="УЧЕБНАЯ ГРУППА"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/dashboard_text_muted"
+                                android:letterSpacing="0.06" />
+
+                            <TextView
+                                android:id="@+id/tv_selected_group_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="26946"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/dashboard_text_primary" />
+
+                            <TextView
+                                android:id="@+id/tv_selected_group_subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Нажмите для выбора из каталога НГУ"
+                                android:textSize="13sp"
+                                android:textColor="@color/dashboard_text_secondary" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ProgressBar
+                                android:id="@+id/progress_group_load"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="8dp"
+                                android:indeterminate="true"
+                                android:indeterminateTint="@color/accent_blue"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_chevron_right"
+                                app:tint="@color/dashboard_text_muted"
+                                android:contentDescription="Выбрать группу" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card: Subject Filter -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_subject_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/dashboard_card_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_filter_icon">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_filter"
+                                app:tint="@color/royal_blue_badge_text"
+                                android:contentDescription="@null" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ФИЛЬТР ПРЕДМЕТОВ"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/dashboard_text_muted"
+                                android:letterSpacing="0.06" />
+
+                            <TextView
+                                android:id="@+id/tv_filter_summary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Все предметы отображаются"
+                                android:textSize="13sp"
+                                android:textColor="@color/dashboard_text_primary" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="@color/dashboard_text_muted"
+                            android:contentDescription="@null" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Card: Background Work Notice (Neutral / Universally applicable) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_battery_optimizations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/battery_card_stroke"
+                    app:cardBackgroundColor="@color/battery_card_bg"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/battery_card_title"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/accent_amber" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/battery_optimization_desc"
+                            android:textSize="12sp"
+                            android:textColor="@color/dashboard_text_secondary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_ignore_battery"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/btn_allow_unrestricted"
+                            android:textColor="@color/accent_amber"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="22dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section: Lockscreen Widget -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="ВИДЖЕТ ЭКРАНА БЛОКИРОВКИ"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dashboard_text_muted"
+                    android:letterSpacing="0.06" />
+
+                <!-- Widget Service Switch Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/dashboard_card_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Виджет экрана блокировки"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/dashboard_text_primary" />
+
+                                <TextView
+                                    android:id="@+id/tv_service_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/status_not_running"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/dashboard_text_muted" />
+                            </LinearLayout>
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switch_service"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:thumbTint="@color/switch_thumb_selector"
+                                app:trackTint="@color/switch_track_selector"
+                                app:trackDecorationTint="@null" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/dashboard_card_stroke" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_parity_badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Нечетная неделя"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/royal_blue_badge_text"
+                                android:background="@drawable/bg_badge_blue"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="3dp" />
+
+                            <TextView
+                                android:id="@+id/tv_last_synced"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:text="Синхронизация..."
+                                android:textSize="11sp"
+                                android:textColor="@color/dashboard_text_muted" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Section: Live Lockscreen Preview -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="ТЕКУЩИЙ СТАТУС (ПРЕВЬЮ ВИДЖЕТА)"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dashboard_text_muted"
+                    android:letterSpacing="0.06" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/dashboard_card_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Room Badge -->
+                            <LinearLayout
+                                android:id="@+id/layout_preview_room_badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="68dp"
+                                android:maxWidth="100dp"
+                                android:minHeight="54dp"
+                                android:gravity="center"
+                                android:padding="6dp"
+                                android:background="@drawable/bg_room_badge"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="АУД."
+                                    android:textSize="9sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/dashboard_text_secondary" />
+
+                                <TextView
+                                    android:id="@+id/tv_preview_room"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="88dp"
+                                    android:text="3107"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/dashboard_text_primary"
+                                    android:gravity="center"
+                                    android:maxLines="2"
+                                    android:ellipsize="end" />
+                            </LinearLayout>
+
+                            <!-- Details -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_preview_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_badge_blue"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="2dp"
+                                    android:text="ЛЕКЦИЯ"
+                                    android:textColor="@color/accent_blue"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_preview_subject"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Название предмета"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/dashboard_text_primary"
+                                    android:maxLines="2"
+                                    android:ellipsize="end" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Micro-phase Dynamic Timer Container -->
+                        <LinearLayout
+                            android:id="@+id/layout_preview_timer_row"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_preview_timer"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="14dp"
+                            android:paddingVertical="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_preview_status_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="До конца пары:"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/accent_amber" />
+
+                            <Chronometer
+                                android:id="@+id/chronometer_preview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/accent_amber" />
+
+                            <TextView
+                                android:id="@+id/tv_preview_static_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="Завтра в 09:00"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/accent_blue"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- How Widget Works Info Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/dashboard_card_stroke"
+                    app:cardBackgroundColor="@color/dashboard_card_bg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="О РАБОТЕ ВИДЖЕТА"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/dashboard_text_muted"
+                            android:letterSpacing="0.06" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="• Виджет непрерывно закреплен на экране блокировки.\n• Показывает текущую аудиторию, предмет и фазу пары (45 - 5 - 45).\n• При нажатии на виджет сразу открывается расписание занятий."
+                            android:textSize="13sp"
+                            android:textColor="@color/dashboard_text_secondary"
+                            android:lineSpacingExtra="3dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Restart / Update Widget Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_restart_widget"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Перезапустить виджет"
+                    android:textColor="@color/dashboard_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_refresh"
+                    app:iconTint="@color/dashboard_text_primary"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="26dp"
+                    android:backgroundTint="@color/accent_blue_dark" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
