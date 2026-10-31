@@ -106,28 +106,50 @@ object UpdateManager {
         }
 
         val apkFile = File(updatesDir, "nsu_schedule_v${updateInfo.versionCode}.apk")
+        var currentUrl = updateInfo.apkUrl
         var connection: HttpURLConnection? = null
+        var redirectCount = 0
+        val maxRedirects = 5
 
         try {
-            val url = URL(updateInfo.apkUrl)
-            connection = (url.openConnection() as HttpURLConnection).apply {
-                connectTimeout = 15000
-                readTimeout = 30000
-                requestMethod = "GET"
-                setRequestProperty("User-Agent", "NSU-Schedule-Android/${getCurrentVersionCode(context)}")
+            while (redirectCount < maxRedirects) {
+                val url = URL(currentUrl)
+                connection = (url.openConnection() as HttpURLConnection).apply {
+                    connectTimeout = 15000
+                    readTimeout = 30000
+                    instanceFollowRedirects = true
+                    requestMethod = "GET"
+                    setRequestProperty("User-Agent", "NSU-Schedule-Android/${getCurrentVersionCode(context)}")
+                }
+
+                val responseCode = connection.responseCode
+                if (responseCode in 300..399) {
+                    val location = connection.getHeaderField("Location")
+                    connection.disconnect()
+                    if (!location.isNullOrEmpty()) {
+                        currentUrl = location
+                        redirectCount++
+                        continue
+                    }
+                }
+
+                if (responseCode !in 200..299) {
+                    return@withContext Result.failure(
+                        IllegalStateException("Ошибка скачивания APK, код сервера: $responseCode")
+                    )
+                }
+
+                break
             }
 
-            val responseCode = connection.responseCode
-            if (responseCode !in 200..299) {
-                return@withContext Result.failure(
-                    IllegalStateException("Ошибка скачивания APK, код сервера: $responseCode")
-                )
-            }
+            val activeConnection = connection ?: return@withContext Result.failure(
+                IllegalStateException("Не удалось установить соединение для скачивания")
+            )
 
-            val totalBytes = connection.contentLength.toLong()
+            val totalBytes = activeConnection.contentLength.toLong()
             var downloadedBytes = 0L
 
-            connection.inputStream.use { input ->
+            activeConnection.inputStream.use { input ->
                 FileOutputStream(apkFile).use { output ->
                     val buffer = ByteArray(8192)
                     var bytesRead: Int
